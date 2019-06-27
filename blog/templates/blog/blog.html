@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>
+     | Blog
+  </title>
+{% endblock %}
+
+<!-- Contenido -->
+{% block content %}
+
+  <!-- Image Showcases -->
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+  
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8 offset-lg-2">
+  
+          <h1 class="my-4 text-center">Posteos
+            <small>de los usuarios</small>
+          </h1>
+  
+          <!-- Blog Post -->
+          {% for post in posts %}
+            <div class="card mb-5 mt-5">
+              <img class="card-img-top mx-auto " src="{{post.image.url}}" alt="Imagen del post">
+              <div class="card-body">
+                <h2 class="card-title">{{post.title}}</h2>
+                <p class="card-text">{{post.content|linebreaks}}</p>
+                <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              </div>
+              <div class="card-footer text-muted text-center">
+                  Publicado el 
+                  {{post.published|date:"SHORT_DATE_FORMAT"}}
+                  por el usuario 
+                  <em class="text-uppercase font-weight-bold font-italic">
+                    <b >{{post.author}}</b >
+                  </em> 
+                  en la categoria
+                <em> 
+                    {% for category in post.categories.all %}
+                      <a href="{% url 'category' category.id %}" class="link">{{category.name}}</a>
+                      {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </em>
+              </div>
+            </div>
+
+            {% endfor %}
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+              <li class="page-item">
+                <a class="page-link" href="#">&larr; Anterior</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">Siguiente &rarr;</a>
+              </li>
+            </ul>
+        </div>
+
+        
+      </div>
+      <!-- /.row -->    
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
+<!-- Contenido -->

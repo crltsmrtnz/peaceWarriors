@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>
+     | Categoria
+  </title>
+{% endblock %}
+<!-- Contenido -->
+{% block content %}
+
+  <!-- Image Showcases -->
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+    
+          <!-- Blog Entries Column -->
+          <div class="col-lg-8 offset-lg-2">
+    
+            <h1 class="my-4 text-center">Posteos
+              <small>de los usuarios</small>
+            </h1>
+    
+            <!-- Blog Post -->
+            {% for post in category.get_posts.all %}
+              <div class="card mb-5 mt-5">
+                <img class="card-img-top" src="{{post.image.url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h2 class="card-title">{{post.title}}</h2>
+                  <p class="card-text">{{post.content|linebreaks}}</p>
+                  <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                  Publicado el:
+                  {{post.published|date:"SHORT_DATE_FORMAT"}}
+                  &nbsp &nbsp 
+                  Por el usuario:
+                  <em class="text-uppercase"><b>{{post.author}}</b></em> 
+                  &nbsp &nbsp 
+                  En la categoria(s):
+                <em> 
+                    {% for category in post.categories.all %}
+                      <a href="{% url 'category' category.id %}" class="link">{{category.name}}</a>
+                      {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </em>
+              </div>
+
+
+              {% endfor %}
+
+              
+          </div>
+          <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+              <li class="page-item">
+                <a class="page-link" href="#">&larr; Anterior</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">Siguiente &rarr;</a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.row -->
+    
+      </div>
+      <!-- /.container -->
+
+
+{% endblock %}
+<!-- Contenido -->
