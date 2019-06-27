@@ -17,6 +17,12 @@ class UserCreationFormWhitWmail(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("El email ya está registrado, prueba con otro.")
             return
+    
+    def save(self, commit=True):
+          instance = super(MenuForm, self).save(commit=False)
+          instance.is_staff = True
+          instance.save()
+          return instance
 
 class ProfileForm(forms.ModelForm):
     class Meta:
