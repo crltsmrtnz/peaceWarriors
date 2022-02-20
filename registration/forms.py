@@ -19,7 +19,7 @@ class UserCreationFormWhitWmail(UserCreationForm):
             return
     
     def save(self, commit=True):
-          instance = super(MenuForm, self).save(commit=False)
+          instance = super(UserCreationFormWhitWmail, self).save(commit=False)
           instance.is_staff = True
           instance.save()
           return instance
